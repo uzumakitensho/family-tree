@@ -1,7 +1,7 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel.test:
+    whatever.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.0
             dockerfile: Dockerfile
@@ -9,7 +9,7 @@ services:
                 WWWGROUP: '${WWWGROUP}'
         image: sail-8.0/app
         ports:
-            - '${APP_PORT:-8786}:80'
+            - '${APP_PORT:-81}:80'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
