@@ -12,5 +12,5 @@
 */
 
 Route::prefix('person')->group(function() {
-    Route::get('/', 'PersonController@index');
+    Route::get('/', 'PersonController@index')->name('person.list');
 });
