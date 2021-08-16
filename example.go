@@ -4,6 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"fmt"
+	"log"
+	"path/filepath"
+	"time"
 )
 
 func main() {
@@ -61,6 +64,18 @@ func main() {
 		message := c.PostForm("message")
 
 		fmt.Printf("id: %s; page: %s; name: %s; message: %s", id, page, name, message)
+	})
+
+	router.MaxMultipartMemory = 8 << 20
+	router.POST("/upload", func(c *gin.Context) {
+		file, _ := c.FormFile("file")
+		log.Println(file.Filename)
+		log.Println(time.Now().Unix())
+
+		dst := filepath.Base(file.Filename)
+		c.SaveUploadedFile(file, dst)
+
+		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
 	})
 
 	router.Run(":8080")
