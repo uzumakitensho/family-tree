@@ -8,6 +8,12 @@ import (
 func main() {
 	router := gin.Default()
 
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
 	router.GET("/user/:name", func(c *gin.Context) {
 		name := c.Param("name")
 		c.String(http.StatusOK, "Hello %s", name)
@@ -27,6 +33,13 @@ func main() {
 
 	router.GET("/user/groups", func(c *gin.Context) {
 		c.String(http.StatusOK, "The available groups are [...]")
+	})
+
+	router.GET("/welcome", func(c *gin.Context) {
+		firstname := c.DefaultQuery("firstname", "Guest")
+		lastname := c.Query("lastname")
+
+		c.String(http.StatusOK, "Hello %s %s", firstname, lastname)
 	})
 
 	router.Run(":8080")
